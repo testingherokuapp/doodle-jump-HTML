@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="apple-touch-icon" sizes="64x64" href="assets/images/icon.png" />
+<link rel="shortcut icon" sizes="64x64" href="assets/images/icon.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+<title>Doodle Jump</title>
+<style>
+		  body {
+		  	background-color: black;
+		    padding: 0px;
+		    margin: 0px;
+		  }
+		  #highscore {
+			  position: absolute;
+			  left: calc(-100px);
+			  Top: calc(-100px);
+			  width: 5px;
+			  display: 'none';
+		  }
+          #accelFull {
+            position: absolute;
+            display: block;
+            z-index: 999;
+            background-color: black;
+            margin: auto;
+            width: 100%;
+            text-align: center;
+          }
+          #accelFull a {
+            color: white
+          }
+	  </style>
+<script>
+    "use strict";
+! function(e) {
+    var h = {
+            scores: {
+                submit: function() {},
+                fetch: function() {},
+                list: function() {return !!m.scores && m.scores}
+            }
+        };
+    e.CloudAPI = h
+}(window);
+    </script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SX3SJWCLEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SX3SJWCLEY');
+</script>
+</head>
+<body>
+<input id="highscore" type="text" />
+<script type="text/javascript" src="js/phaser.min.js"></script>
+<script type="text/javascript" src="js/fulltilt.min.js"></script>
+<script type="text/javascript" src="js/build/production.min.js"></script>
+<script type="text/javascript" src="js/NoSleep.min.js"></script>
+<script src="js/main.js"></script>
+<div id="accelFull"><a id="accelPermsButton" href="javascript:void(0);" onclick="getAccel()"></a></div>
+<script> 
+		var noSleep = new NoSleep();
+function enableNoSleep() {
+  noSleep.enable();
+  document.removeEventListener('touchstart', enableNoSleep, false);
+}
+document.addEventListener('touchstart', enableNoSleep, false);
+
+var is_iosbrowser = !!navigator.userAgent.match(/iOS\/[\d\.]+.*Safari|Mobile\/[\d\.]+/), is_ios = /iP(ad|od|hone)/i.test(window.navigator.userAgent), is_Android = /Android/i.test(navigator.userAgent);function _isIpad(){var isIpad = navigator.userAgent.toLowerCase().indexOf('ipad') !== -1;if (!isIpad && navigator.userAgent.match(/Mac/) && navigator.maxTouchPoints && navigator.maxTouchPoints > 2) {return true;}return isIpad;};var isIpadForReal = _isIpad();
+
+if (isIpadForReal || is_iosbrowser || is_ios || is_Android) {
+    var box = document.getElementById("accelPermsButton");
+    box.innerHTML = "<span style='font-family: system-ui'>Touch here to grant accelerometer permission</span>";
+}
+
+function getAccel(){
+    DeviceMotionEvent.requestPermission().then(response => {
+        if (response == 'granted') {
+            console.log("accelerometer permission granted");
+            var box = document.getElementById("accelPermsButton");
+            box.style.display = "none";
+            var box1 = document.getElementById("accelFull");
+            box1.style.display = "none";
+        }
+        else {
+            console.log("accelerometer permission denied");
+            var box = document.getElementById("accelPermsButton");
+            box.innerHTML = "<span style='font-family: system-ui'>You need to grant accelerometer permission to play this game with sensor. Quit the browser to try again.</span>";
+        }
+    });
+}
+	</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vaafb692b2aea4879b33c060e79fe94621666317369993" integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA==" data-cf-beacon='{"rayId":"77c9bd88efb1c409","version":"2022.11.3","r":1,"token":"1646abcce58241b1aef359d9d36b339d","si":100}' crossorigin="anonymous"></script>
+</body>
+</html>
